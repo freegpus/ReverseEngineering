@@ -36,8 +36,8 @@ Malware can use CreateThread in multiple ways, such as the following:
 
 - ​	The thread gains access to the mutex with a call to WaitForSingleObject, and any subsequent threads attempting to gain access to it must wait. When a thread is finished using a mutex, it uses the ReleaseMutex function.  
 
-- ​	*The Component Object Model*  
+- *The Component Object Model*  
 
-- ​	The *Microsoft Component Object Model (COM)* is an interface standard that makes it possible for different software components to call each other’s code without knowledge of specifics about each other. When analyzing malware that uses COM, you’ll need to be able to determine which code will be run as a result of a COM function call.  
+- The *Microsoft Component Object Model (COM)* is an interface standard that makes it possible for different software components to call each other’s code without knowledge of specifics about each other. When analyzing malware that uses COM, you’ll need to be able to determine which code will be run as a result of a COM function call.  
 
-- ​	COM works with any programming language and was designed to sup- port reusable software components that could be utilized by all programs. COM uses an object construct that works well with object-oriented program- ming languages, but COM does not work exclusively with object-oriented programming languages.  
+- COM works with any programming language and was designed to sup- port reusable software components that could be utilized by all programs. COM uses an object construct that works well with object-oriented program- ming languages, but COM does not work exclusively with object-oriented programming languages.  

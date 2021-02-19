@@ -9,9 +9,11 @@ Initial findings:
 - **PIE:** this technique, like the ASLR, randomizes the base address but in this case it is from the binary itself. This makes it difficult for us to use gadgets or functions of the binary. Since PIE (Position Independent Executable) isn’t enabled we know that the .bss address won’t change from run to run. So, this is a great place to store /bin/sh in memory. Let’s check our section permissions and check our .bss section address (located adjacent to the data segment).
 - **Canaries:** Normally, a random value is generated at program initialization, and inserted at the end of the high risk area where the stack overflows, at the end of the function, it is checked whether the canary value has been modified.
 
-More on bypassing each of these [here](https://ironhackers.es/en/tutoriales/pwn-rop-bypass-nx-aslr-pie-y-canary/)
+More on bypassing each of these **[here](https://ironhackers.es/en/tutoriales/pwn-rop-bypass-nx-aslr-pie-y-canary/)**
 
+<u>Stripped</u> means the function names are all going to go missing
 
+<u>Statically linking</u> is going to be a larger file because it needs to include all of the libc in the binary
 
 **<u>NX Enabled</u>**: This means we can’t just insert shellcode to get execution
 
@@ -35,13 +37,13 @@ Then the syscall number gets moved into EAX (MOV EAX, syscall_number)
 Last you invoke the system call with SYSENTER / INT 80
 ```
 
-The <u>RAX</u> (Accumulator register) will hold the system call number where we will call execve (number 59 or **0x3b** in hexadecimal). 
+The **<u>RAX</u>** (Accumulator register) will hold the system call number where we will call execve (number 59 or **0x3b** in hexadecimal). 
 
 Linux syscall table allows us to also call various other useful functions like socket or _sysctl.
 
-The <u>RDI</u> (Destination Index register) argument will point to /bin/sh.
+The **<u>RDI</u>** (Destination Index register) argument will point to /bin/sh.
 
-The <u>RSI and RDX</u> (Source Index register and Data register) are additional arguments that we will zero out.
+The <u>**RSI and RDX**</u> (Source Index register and Data register) are additional arguments that we will zero out.
 
 
 
