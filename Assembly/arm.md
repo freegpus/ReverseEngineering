@@ -44,9 +44,51 @@ In Intel-syntax: <instruction> <destination operand> <source operand>.
 
 In AT&T syntax: <instruction> <source operand> <destination operand>.
 
-There are no Thumb and Thumb-2 modes in ARM64, only ARM, so there are 32-bit instructions only. The Register count is doubled: .2.4 on page 1337. 64-bit register have X- prefixes, while its 32-bit parts—W-.
-
-ARM programs also use the stack for saving return addresses, but differently. As mentioned in “Hello, world!” ( 1.5.3 on page 24), the RA is saved to the LR (link register). If one needs, however, to call another function and use the LR register one more time, its value has to be saved. Usually it is saved in the function prologue.
 
 
+**<u>THUMB:</u>**
 
+ARM processors are similar in that they can also operate in two states: ARM and Thumb. ARM/Thumb state determines only the instruction set, not the privilege level. For example, code running in SVC mode can be either ARM or Thumb. In ARM state, instructions are always 32 bits wide; in Thumb state, instructions can be either 16 bits or 32 bits wide. Which state the processor executes in depends on two conditions:
+
+■ When branching with the BX and BLX instruction, if the destination
+register’s least signifi cant bit is 1, then it will switch to Thumb state.
+(Although instructions are either 2- or 4-byte aligned, the processor will
+ignore the least signifi cant bit so there won’t be alignment issues.)
+
+■ If the T bit in the current program status register (CPSR) is set, then it is in
+Thumb mode. The semantic of CPSR is explained in the following section,
+but for now you can think of it as an extended EFLAGS register in x86.
+
+When an ARM core boots up, most of the time it enters ARM state and remains
+that way until there is an explicit or implicit change to Thumb. In practice, many
+recent operating system code mainly uses Thumb code because higher code
+density is wanted (a mixture of 16/32-bit wide instructions may be smaller in
+size than all 32-bit ones); applications can operate in whatever mode they want.
+
+There are no Thumb and Thumb-2 modes in ARM64, only ARM, so there are 32-bit instructions only. The Register count is doubled. 64-bit register have X- prefixes, while its 32-bit parts—W-.
+
+ARM programs also use the stack for saving return addresses, but differently. As mentioned in “Hello, world!”, the RA is saved to the LR (link register). If one needs, however, to call another function and use the LR register one more time, its value has to be saved. Usually it is saved in the function prologue.
+
+
+
+### Cross Compiling ARM on Linux
+
+If you don’t have access to an ARM64 device, or prefer to build on a different platform, you’ll need to install the ARM64 (AArch64) cross-compilation toolchain. For newer versions of Ubuntu this is as simple as:
+
+```bash
+sudo apt-get install gcc-aarch64-linux-gnu
+```
+
+As above, we must invoke the assembler followed by the linker, making sure to use the ARM64 toolchain:
+
+```bash
+aarch64-linux-gnu-as -o hello.o hello.S
+aarch64-linux-gnu-ld -s -o hello hello.o
+```
+
+You will not be able run the generated binary natively, however you can copy it to an ARM64 device, or use [QEMU user-mode emulation](https://www.qemu.org/docs/master/user/index.html):
+
+```bash
+➜ qemu-aarch64 hello
+Hello, ARM64!
+```
