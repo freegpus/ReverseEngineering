@@ -91,14 +91,16 @@ Windows specific RE [here](./Windows/windows.md)
 
 
 
-## iOS
+## Mobile
 
 RE for iOS **<u>[here](./ios/ios.md)</u>**
+
+RE for Android **<u>[here](./android/android.md)</u>**
 
 
 
 ## Example Walkthroughs
 
-RTOS: [Belkin F9K1001](https://github.com/a-rey/reverse_engineering/blob/master/F9K1001/F9K1001_v5_03.21.md)
+RTOS: [Belkin F9K1001](https://github.com/a-rey/reverse_engineering/blob/master/F9K1001/F9K1001_v5_03.21.md) (special thanks to A-Rey)
 
 Using ROP/PwnTools against a [gets ctf](./x64/gcc_elf/gets_ctf.md)
