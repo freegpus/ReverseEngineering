@@ -20,6 +20,8 @@ Return Oriented Programming (ROP) [here](./ROP/rop.md)
 
 Hardware [here](./hardware/hardware.md)
 
+
+
 ## Tools & Techniques
 
 **Quick Commands:**
@@ -41,10 +43,6 @@ strace [file]
 ltrace [file]
 objdump [file]
 ```
-
-![inetsim](./screenshots/inetsim.png)
-
-![inetsim2](./screenshots/inetsim2.png)
 
 
 
@@ -84,6 +82,8 @@ wrappers.
 ![packing](./screenshots/packing.png)
 
 ![main_mem](./screenshots/main_mem.png)
+
+
 
 ## Windows Specific RE
 
