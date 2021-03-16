@@ -12,7 +12,7 @@ cd ghidra_9.1.2_PUBLIC/
 
 [**<u>Ghidra tips and tricks</u>**](./ghidra/ghidra.md)
 
-
+[<u>**GDB-Peda CheatSheet**</u>](https://github.com/ebtaleb/peda_cheatsheet/blob/master/peda.md)
 
 ## C, ROP, Hardware Concepts
 
