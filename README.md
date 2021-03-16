@@ -10,6 +10,8 @@ cd ghidra_9.1.2_PUBLIC/
 ./ghidraRun
 ```
 
+[**<u>Ghidra tips and tricks</u>**](./ghidra/ghidra.md)
+
 
 
 ## C, ROP, Hardware Concepts
@@ -31,6 +33,7 @@ Hardware [here](./hardware/hardware.md)
 foremost [file]
 binwalk -dd ".*" [file]
 binwalk -e [file]
+
 #architecture
 binwalk -A 
 
@@ -39,6 +42,7 @@ checksec [file]
 strings [file]
 rabin2 -zzq [file]
 strace [file]
+
 #for tracing library calls
 ltrace [file]
 objdump [file]
