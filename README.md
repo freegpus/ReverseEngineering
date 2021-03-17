@@ -41,9 +41,10 @@ binwalk -A
 checksec [file]
 strings [file]
 rabin2 -zzq [file]
+#system call tracing
 strace [file]
 
-#for tracing library calls
+#for tracing dynamic library calls
 ltrace [file]
 objdump [file]
 ```
