@@ -24,6 +24,24 @@
 
 
 
+### When a Function is Called & Removal
+
+1. The caller places any parameters required by the function being called into locations dictated by the calling convention employed by the called function. The program stack pointer may change if parameters are passed on the runtime stack.
+2. The caller transfers control to the function being called with an instruction sush as the x86 `call` ARM `BL` MIPS `JAL` . A return address is saved onto the program stack or in a processor register. 
+3. If necessary, the called function configures a frame pointer and saves any register values that the caller expects to remain unchanged.
+4. The called function allovates space for any local variables that it may require. This is often done by adjusting the program stack pointer to reserve space on the runtime stack.
+5. The called function performs its operations, potentially accessing the parameters passed to it and generating a result. If the function returns a result, it is often placed into a specific register or registers that the caller can examine after the function returns.
+6. When the function has completed its operations, any stack space reserved for local variables is released. This is often done by reversing actions done in step 4.
+7. Registers whose values were saved (in step 3) on behalf of the caller are restored to their original values.
+8. The called function returns control to the caller. Typical instructions for this include the x86 `RET` ARM `POP` MIPS `JB`. Depending on the calling convention in use, this operation may also aclear one or more parameters from the program stack.
+9. Once the caller regains control, it may need to remove parameters from the program stack by restoring the program stack pointer to the value that it held prior to step 1. 
+
+Steps 3 and 4 are the prologue. Steps 6 thru 8 are the epilogue. 
+
+**<u>Removal:</u>** When we talk about "removing" items from a stack, as well as removal of the entire stack frames, we mean that the stack pointer is adjusted so it points to data lower on the stack and the removed content is no longer accessible through a `POP` operation. It is not "removed" until it is overwritten by a `PUSH` operation. 
+
+
+
 ### Function Prologues/Epilogues
 
 A function prologue is a sequence of instructions at the start of a function. It often

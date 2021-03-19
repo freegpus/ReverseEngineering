@@ -1,6 +1,10 @@
 # Return Oriented Programming (ROP)
 
-Initial findings:
+![rop_explanation](./screenshots/rop_explanation.png)
+
+
+
+Example Initial findings:
 
 ![checksec](./screenshots/checksec.png)
 
@@ -54,4 +58,30 @@ https://github.com/danny-devv/Building-the-ROP-Chain
 Leaking C lib: https://ctftime.org/writeup/23454
 
 John Hammond's tutorial: https://www.youtube.com/watch?v=i5-cWI_HV8o
+
+
+
+### Simple ROP Gadget Finder for Ghidra
+
+Our task is to design and develop an instruction analyzer that will identify simple ROP gadgets within a binary. The analyzer needs to be added to Ghidra and be available as a selectable analyzer in the Ghidra Analyzer menu.
+
+![rop_ghidra](./screenshots/rop_ghidra.png)
+
+![rop_ghidra_2](./screenshots/rop_ghidra_2.png)
+
+![rop_ghidra_3](./screenshots/rop_ghidra_3.png)
+
+![rop_ghidra_4](./screenshots/rop_ghidra_4.png)
+
+![rop_ghidra_5](./screenshots/rop_ghidra_5.png)
+
+![rop_ghidra_6](./screenshots/rop_ghidra_6.png)
+
+![rop_ghidra_7](./screenshots/rop_ghidra_7.png)
+
+![rop_ghidra_8](./screenshots/rop_ghidra_8.png)
+
+![rop_ghidra_9](./screenshots/rop_ghidra_9.png)
+
+![rop_ghidra_10](./screenshots/rop_ghidra_10.png)
 

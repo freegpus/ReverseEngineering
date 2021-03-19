@@ -1,4 +1,4 @@
-# C Concepts
+# C/C++ Concepts
 
 ### Memory Map of a C Program
 
@@ -90,3 +90,22 @@ Value of *ip variable: 20
 
   - Uncontrolled format string is a vulnerability category which can cause information leakage and overwriting of memory. The following functions are also vulnerable: printf, fprintf, sprintf and snprintf. Also look at other functions that take a “format string” as argument.
   - **<u>fix</u>**: Always hardcode the format string. At least, never let it come directly from any user’s input.
+
+
+
+### C++ Reversing Primer
+
+![c++_this](../screenshots/c++_this.png)
+
+
+
+**<u>Virtual Functions and Vftables</u>**
+
+Virtual functions enable polymorphic behavior in C++ programs. For each class (or subclass through inheritance) that contains virtual functions, the compiler generates a table containing pointers to each virtual function the class. Such tables are valled ***vftables*** (or vtables). Every instance of a class that contains virtual functions is given an additional data member that points to the class' vftable. The ***vftables pointer*** is allocated as the first data member within the class instance, and when an object is created at runtime, its constructor function sets its vftable pointer to point at the appropriate vftable. When that object invokes a virtual function, the correct function is selected by performing a lookup in the object's vftable. Thus, vftables are the underlying mechanism that facilitates runtime resolution of calls to virtual functions.
+
+![vftable_ex1](../screenshots/vftable_ex1.png)
+
+![vftable_ex1_2](../screenshots/vftable_ex1_2.png)
+
+![vftable_ex1_3](../screenshots/vftable_ex1_3.png)
+

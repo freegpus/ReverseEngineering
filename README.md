@@ -14,9 +14,11 @@ cd ghidra_9.1.2_PUBLIC/
 
 [<u>**GDB-Peda CheatSheet**</u>](https://github.com/ebtaleb/peda_cheatsheet/blob/master/peda.md)
 
-## C, ROP, Hardware Concepts
+## C, C++, ROP, Hardware Concepts
 
 Everything related to C reverse engineering [here](./C_Concepts/c.md)
+
+Everything related to C++ reverse engineering [here](./C_Concepts/c.md#c++-reversing-primer)
 
 Return Oriented Programming (ROP) [here](./ROP/rop.md)
 
@@ -41,12 +43,24 @@ binwalk -A
 checksec [file]
 strings [file]
 rabin2 -zzq [file]
+
+#list symbols from object files
+nm file.o
+objdump
+
+#list dynamic dependencies
+ldd [file]
+
 #system call tracing
 strace [file]
 
 #for tracing dynamic library calls
 ltrace [file]
 objdump [file]
+
+#stream dissas
+ndisasm -b 64 [file]
+diStorm
 ```
 
 
