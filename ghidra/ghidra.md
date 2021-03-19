@@ -7,12 +7,12 @@ Most of these notes will be from the No Starch Press Ghidra Book
 NSA's [Dev Guide](https://github.com/NationalSecurityAgency/ghidra/blob/master/DevGuide.md)
 
 1. [Custom Function ID](#Custom-Function-IDs)
-2. API
-3. Modules & P-Code
-4. Headless Execution
-5. Analyzing Unknown Binaries
-6. Emulating for Dynamic Analysis & Deobfuscation
-7. Patching
+2. [API](#Common-API-Code)
+3. [Modules & P-Code](Custom-Modules-&-P-Code)
+4. [Headless Execution](#Headless)
+5. [Analyzing Unknown Binaries](#Unknown-Binaries)
+6. [Emulating for Dynamic Analysis & Deobfuscation](#Emulating-for-Deobfuscation/Dynamic-Analysis)
+7. [Patching](#Patching)
 
 
 
