@@ -8,10 +8,10 @@ NSA's [Dev Guide](https://github.com/NationalSecurityAgency/ghidra/blob/master/D
 
 1. [Custom Function ID](#Custom-Function-IDs)
 2. [API](#Common-API-Code)
-3. [Modules & P-Code](Custom-Modules-&-P-Code)
+3. [Modules & P-Code](#Custom-Modules-&-P-Code)
 4. [Headless Execution](#Headless)
 5. [Analyzing Unknown Binaries](#Unknown-Binaries)
-6. [Emulating for Dynamic Analysis & Deobfuscation](#Emulating-for-Deobfuscation/Dynamic-Analysis)
+6. [Emulating for Dynamic Analysis & Deobfuscation](#Emulating-for-Deobfuscation-&-Dynamic-Analysis)
 7. [Patching](#Patching)
 
 
@@ -109,7 +109,7 @@ At this point, we would hope that we had enough code to perform a comprehensive 
 • Perform statistical analysis over portions of the binary to find regions that look statistically similar to known binaries.
 • Look for repetitive data sequences that might be tables of addresses (for example, many nontrivial 32-bit integers that all share the same upper 12 bits).4 These may be pointers and may provide clues regarding the memory layout of the binary.
 
-### Emulating for Deobfuscation/Dynamic Analysis
+### Emulating for Deobfuscation & Dynamic Analysis
 
 Pg. 497 of The Ghidra Book
 
