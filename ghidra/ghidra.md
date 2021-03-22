@@ -8,10 +8,10 @@ NSA's [Dev Guide](https://github.com/NationalSecurityAgency/ghidra/blob/master/D
 
 1. [Custom Function ID](#Custom-Function-IDs)
 2. [API](#Common-API-Code)
-3. [Modules & P-Code](#Custom-Modules-&-P-Code)
+3. [Modules & P-Code](#Custom-Modules--P-Code)
 4. [Headless Execution](#Headless)
 5. [Analyzing Unknown Binaries](#Unknown-Binaries)
-6. [Emulating for Dynamic Analysis & Deobfuscation](#Emulating-for-Deobfuscation-&-Dynamic-Analysis)
+6. [Emulating for Dynamic Analysis & Deobfuscation](#Emulating-for-Deobfuscation--Dynamic-Analysis)
 7. [Patching](#Patching)
 
 
