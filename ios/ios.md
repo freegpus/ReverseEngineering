@@ -11,11 +11,15 @@ In a nutshell, there are two major functions in iOS reverse engineering:
 
 ### Tools
 
-**<u>Disassemblers:</u>** IDA, Hopper
+**<u>Disassemblers:</u>** IDA, Hopper, Class-dump
 
 **<u>Debuggers:</u>** XCode, LLDB
 
 **<u>Dev Kits:</u>** Theos
+
+**<u>Viewing Hierarchy:</u>** Reveal
+
+**<u>File management:</u>** iFunBox, dyld_decache (extracting from dyld_shared_cache)
 
 
 
@@ -101,3 +105,144 @@ Daemons are born to run in the background, providing all kinds of services. For 
 use plutil: `plutil -p`
 
 Compared with Apps, daemons provide much much lower level functions, accompanying with much much greater difficulties reverse engineering them. If you don’t know what you’re doing for sure, don’t even try to modify them!
+
+
+
+#### Class Dump
+
+Download http://stevenygard.com/projects/class-dump
+
+After downloading and decompressing class-dump-3.5.dmg, copy the class-dump executable to “/usr/bin”, and run “sudo chmod 777 /usr/bin/class-dump” in Terminal to grant it execute permission.
+
+First, copy the target App to OSX, as I placed it under “/Users/snakeninny”. Then go to
+App’s directory in Terminal, and use plutil, the Xcode built-in tool to inspect the
+“CFBundleExecutable” field in Info.plist:
+
+
+
+```bash
+cd /Users/snakeninny/SMSNinja.app/
+
+plutil -p Info.plist | grep CFBundleExecutable
+
+class-dump -S -s -H SMSNinja -o
+```
+
+
+
+#### Theos
+
+Most iOS developers have already installed Xcode, which contains Command Line Tools. For those who don’t have Xcode yet, please download it from Mac AppStore for free. If two or more Xcodes have been installed already, one Xcode should be specified as “active” by “xcodeselect”, Theos will use this Xcode by default. For example, if 3 Xcodes have been installed on your Mac, namely Xcode1.app, Xcode2.app and Xcode3.app, and you want to specify Xcode3 as active, please use the following command:
+
+```bash
+sudo xcode-select -s
+```
+
+Download:
+
+```bash
+export THEOS=/opt/theos
+sudo git clone git://github.com/DHowett/theos.git $THEOS
+```
+
+Configure ldid
+
+ldid is a tool to sign iOS executables; it replaces codesign from Xcode in jailbreak
+development. Download it from http://joedj.net/ldid to “/opt/theos/bin/”, then grant it
+execute permission using the following command:
+
+```bash
+sudo chmod 777 /opt/theos/bin/ldid
+```
+
+Configure CydiaSubstrate
+
+```bash
+sudo /opt/theos/bin/bootstrap.sh substrate
+```
+
+Configure dpkg-deb
+
+Download dm.pl from
+https://raw.githubusercontent.com/DHowett/dm.pl/master/dm.pl, rename it dpkg-deb and move it to “/opt/theos/bin/”, then grant it execute permission using the following command:
+
+```bash
+sudo chmod 777 /opt/theos/bin/dpkg-deb
+```
+
+Configure Theos NIC templates
+
+It is convenient for us to create various Theos projects because Theos NIC templates have 5 different Theos project templates. You can also get 5 extra templates from
+https://github.com/DHowett/theos-nic-templates/archive/master.zip and put the 5 extracted .tar files under “/opt/theos/templates/iphone/”.
+
+
+
+**<u>Example Tweak iOSREGreetings Project:</u>**
+
+```bash
+#create the project
+snakeninnysiMac:Code snakeninny$ /opt/theos/bin/nic.pl
+NIC 2.0 - New Instance Creator
+------------------------------
+[1.] iphone/application
+[2.] iphone/cydget
+[3.] iphone/framework
+[4.] iphone/library
+[5.] iphone/notification_center_widget
+[6.] iphone/preference_bundle
+[7.] iphone/sbsettingstoggle
+[8.] iphone/tool
+[9.] iphone/tweak
+[10.] iphone/xpc_service
+Choose a Template (required): 9
+Project Name (required): iOSREGreetings
+Package Name [com.yourcompany.iosregreetings]: com.iosre.iosregreetings
+Author/Maintainer Name [snakeninny]: snakeninny
+[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]:
+com.apple.springboard
+[iphone/tweak] List of applications to terminate upon installation (space-separated, '-'
+for none) [SpringBoard]:
+Instantiating iphone/tweak in iosregreetings/...
+Done.
+
+#edit Tweak.xm
+%hook SpringBoard
+- (void)applicationDidFinishLaunching:(id)application
+{
+%orig;
+UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Come to
+http://bbs.iosre.com for more fun!" message:nil delegate:self cancelButtonTitle:@"OK"
+otherButtonTitles:nil];
+[alert show];
+[alert release];
+}
+%end
+
+#edit makefile 
+export THEOS_DEVICE_IP = iOSIP
+export ARCHS = armv7 arm64
+export TARGET = iphone:clang:latest:8.0
+include theos/makefiles/common.mk
+TWEAK_NAME = iOSREGreetings
+iOSREGreetings_FILES = Tweak.xm
+iOSREGreetings_FRAMEWORKS = UIKit
+include $(THEOS_MAKE_PATH)/tweak.mk
+after-install::
+install.exec "killall -9 SpringBoard"
+
+#edit control
+Package: com.iosre.iosregreetings
+Name: iOSREGreetings
+Depends: mobilesubstrate, firmware (>= 8.0)
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Greetings from iOSRE!
+Maintainer: snakeninny
+Author: snakeninny
+Section: Tweaks
+Homepage: http://bbs.iosre.com
+
+#compile
+make package install
+```
+
