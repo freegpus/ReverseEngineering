@@ -30,13 +30,13 @@ Malware can use CreateThread in multiple ways, such as the following:
 
 - One topic related to threads and processes is *mutexes*, referred to as *mutants* when in the kernel. Mutexes are global objects that coordinate multiple pro- cesses and threads.  
 
-- ​	Mutexes are mainly used to control access to shared resources, and are often used by malware. For example, if two threads must access a memory structure, but only one can safely access it at a time, a mutex can be used to control access.  
+- Mutexes are mainly used to control access to shared resources, and are often used by malware. For example, if two threads must access a memory structure, but only one can safely access it at a time, a mutex can be used to control access.  
 
-- ​	Only one thread can own a mutex at a time. Mutexes are important to malware analysis because they often use hard-coded names, which make good host-based indicators. Hard-coded names are common because a mutex’s name must be consistent if it’s used by two processes that aren’t communicating in any other way.  
+- Only one thread can own a mutex at a time. Mutexes are important to malware analysis because they often use hard-coded names, which make good host-based indicators. Hard-coded names are common because a mutex’s name must be consistent if it’s used by two processes that aren’t communicating in any other way.  
 
-- ​	The thread gains access to the mutex with a call to WaitForSingleObject, and any subsequent threads attempting to gain access to it must wait. When a thread is finished using a mutex, it uses the ReleaseMutex function.  
+- The thread gains access to the mutex with a call to WaitForSingleObject, and any subsequent threads attempting to gain access to it must wait. When a thread is finished using a mutex, it uses the ReleaseMutex function.  
 
-- *The Component Object Model*  
+  <u>*The Component Object Model*</u>  
 
 - The *Microsoft Component Object Model (COM)* is an interface standard that makes it possible for different software components to call each other’s code without knowledge of specifics about each other. When analyzing malware that uses COM, you’ll need to be able to determine which code will be run as a result of a COM function call.  
 

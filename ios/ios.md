@@ -1,4 +1,4 @@
-# iOS 
+# iOS General Intro & Tools
 
 In a nutshell, there are two major functions in iOS reverse engineering:
 
@@ -9,7 +9,7 @@ In a nutshell, there are two major functions in iOS reverse engineering:
 
 
 
-### Tools
+### OSX Toolkit
 
 **<u>Disassemblers:</u>** IDA, Hopper, Class-dump
 
@@ -20,6 +20,21 @@ In a nutshell, there are two major functions in iOS reverse engineering:
 **<u>Viewing Hierarchy:</u>** Reveal
 
 **<u>File management:</u>** iFunBox, dyld_decache (extracting from dyld_shared_cache)
+
+
+
+### iOS Toolkit
+
+We still need to install and configure several tools on iOS to combine both
+platforms of OSX and iOS
+
+[<u>**iOS toolkit**</u>](./ios_toolkit.md): CydiaSubstrate, debugserver
+
+
+
+### Theory to Objective-C & ARM RE
+
+[<u>**Theories to iOS RE**</u>](./theory.md)
 
 
 
@@ -245,4 +260,6 @@ Homepage: http://bbs.iosre.com
 #compile
 make package install
 ```
+
+
 
