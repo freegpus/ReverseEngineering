@@ -1,5 +1,3 @@
-
-
 # iOS Toolkit
 
 ### CydiaSubstrate

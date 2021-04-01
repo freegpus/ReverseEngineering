@@ -36,7 +36,9 @@ platforms of OSX and iOS
 
 [<u>**Theories to iOS RE**</u>](./theory.md)
 
+**<u>[ARM Intro](./arm.md)</u>**
 
+**<u>[Arm RE for iOS](./tweakex.md)</u>**
 
 ### Important Directories
 

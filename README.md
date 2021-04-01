@@ -71,7 +71,7 @@ For indepth Assembly instruction breakdown [here](./Assembly/assembly.md)
 
 - ​	comparison of [hello world between architectures](./Assembly/assembly.md#what-hello-world-looks-like)
 
-<u>ARM & MIPS</u> [<u>here</u>](./Assembly/arm.md)
+<u>ARM & MIPS</u> [<u>here</u>](./Assembly/arm.md), and more about ARM/THUMB <u>[here](./ios/arm.md)</u>
 
 <u>x86</u> Concepts [here](./x86/x86.md)
 
