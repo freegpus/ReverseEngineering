@@ -14,6 +14,8 @@ cd ghidra_9.1.2_PUBLIC/
 
 [<u>**GDB-Peda CheatSheet**</u>](https://github.com/ebtaleb/peda_cheatsheet/blob/master/peda.md)
 
+**[<u>GDB Gef Tutorial</u>](./ghidra/gef.md)**
+
 ## C, C++, ROP, Hardware Concepts
 
 Everything related to C reverse engineering [here](./C_Concepts/c.md)
