@@ -229,4 +229,66 @@ p.interactive()
 ```
 
 
+We don't actually see that BNE instruction at the address. That's because we need to calculate it's runtime address of where it actually is. That math is as follows:
+Offset of Code section relative to binary (.text addr) + (Absolute address of the instruction we want to change (0x0016806c) - Starting address of the code section (.text))
+Using the command readelf we can get the .text section info
+readelf -e vxWorks.st
 
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           PowerPC
+  Version:                           0x1
+  Entry point address:               0x10000
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          35192516 (bytes into file)
+  Flags:                             0x80000000, emb
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         1
+  Size of section headers:           40 (bytes)
+  Number of section headers:         13
+  Section header string table index: 10
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        00010000 000060 290e30 00 WAX  0   0 16
+  [ 2] .data             PROGBITS        002a0e30 290e90 0470f0 00  WA  0   0  8
+  [ 3] .bss              NOBITS          002e7f20 2d7f80 14bb10 00  WA  0   0  8
+  [ 4] .debug_aranges    PROGBITS        00000000 2d7f80 0019a0 00      0   0  1
+  [ 5] .debug_pubnames   PROGBITS        00000000 2d9920 019f3e 00      0   0  1
+  [ 6] .debug_info       PROGBITS        00000000 2f385e 1cc0fd0 00      0   0  1
+  [ 7] .debug_abbrev     PROGBITS        00000000 1fb482e 0475fd 00      0   0  1
+  [ 8] .debug_line       PROGBITS        00000000 1ffbe2b 194004 00      0   0  1
+  [ 9] .debug_frame      PROGBITS        00000000 218fe30 000014 00      0   0  4
+  [10] .shstrtab         STRTAB          00000000 218fe44 00007e 00      0   0  1
+  [11] .symtab           SYMTAB          00000000 21900cc 02a0d0 10     12 4626  4
+  [12] .strtab           STRTAB          00000000 21ba19c 034f51 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  v (VLE), p (processor specific)
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x000060 0x00010000 0x00010000 0x2d7f20 0x423a30 RWE 0x10
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .data .bss 
+
+Now using the .text section's info we can finally do the hex calculation:
+
+0016806c (absolute addr) – 00010000 (.text starting addr) = 15806C
+15806C + 000060 (.text offset) = 1580CC
+
+Thus 0x1580CC is where the BNE instruction will be in the hex.
+The BNE instruction can be modified to a BEQ instruction using vim and xxd:
+4082 0014 to 4182 0014
