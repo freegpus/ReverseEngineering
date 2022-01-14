@@ -230,8 +230,12 @@ p.interactive()
 
 
 We don't actually see that BNE instruction at the address. That's because we need to calculate it's runtime address of where it actually is. That math is as follows:
+
 Offset of Code section relative to binary (.text addr) + (Absolute address of the instruction we want to change (0x0016806c) - Starting address of the code section (.text))
-Using the command readelf we can get the .text section info
+
+Using the command readelf we can get the .text section info:
+
+```bash
 readelf -e vxWorks.st
 
 ELF Header:
@@ -270,6 +274,7 @@ Section Headers:
   [10] .shstrtab         STRTAB          00000000 218fe44 00007e 00      0   0  1
   [11] .symtab           SYMTAB          00000000 21900cc 02a0d0 10     12 4626  4
   [12] .strtab           STRTAB          00000000 21ba19c 034f51 00      0   0  1
+
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -283,7 +288,7 @@ Program Headers:
  Section to Segment mapping:
   Segment Sections...
    00     .text .data .bss 
-
+```
 Now using the .text section's info we can finally do the hex calculation:
 
 0016806c (absolute addr) – 00010000 (.text starting addr) = 15806C
