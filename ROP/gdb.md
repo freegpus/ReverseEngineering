@@ -228,6 +228,14 @@ p.interactive()
 
 ```
 
+Following the previous example, we know the address of the instruction we cant to change is 0x0016806c, but if you go into a hex editor (using vim as an example):
+```bash
+vim vxworks.st
+:%!xxd
+#then revert after making edits and save
+:%!xxd -r 
+:wq
+```
 
 We don't actually see that BNE instruction at the address. That's because we need to calculate it's runtime address of where it actually is. That math is as follows:
 
