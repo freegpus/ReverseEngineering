@@ -77,7 +77,7 @@ docker build -t image-reversing .
 And finally run it with:
 
 ```bash
-docker --rm -it image-reversing
+docker run --rm -it image-reversing
 
 #should drop into a gdb-gef
 ```
