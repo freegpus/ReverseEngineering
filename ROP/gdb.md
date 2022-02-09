@@ -34,8 +34,37 @@ gef➤  hexdump byte 0x7f43678f69b4 --size 32
 0x00007f43678f69b4     33 29 c2 11 bf 13 0e 91 92 ac 27 e3 b9 d3 2e 80    3)........'.....
 0x00007f43678f69c4     62 aa 83 76 6f 4d 07 2e da bc 54 08 6a 57 4b 73    b..voM....T.jWKs
 ```
+If you do not have the source code of debugged program, you can find interested function names using the nm command:
+```bash
 
+nm .\test.exe|findstr "sayhi"
+00401410 T __Z5sayhiv
+```
+The callable functions have a “T” prefixed and their names are mangled. 00401410 is the address of  function. The call command actually calls the function at address 0x00401410. You can jump to that function instead of calling it.
+```bash
 
+(gdb) jump sayhi
+Continuing at 0x401416.
+hi
+[New Thread 11932.0x2050]
+[Inferior 1 (process 11932) exited normally]
+```
+Of course, the result is the crashing of the inferior because jump command does not prepare a frame for that function, the returning of the function will corrupt the stack.
+
+If Python scripting is supported in your GDB, you can use the python api to evaluate a function:
+```bash
+
+python gdb.parse_and_eval("((void(*)())sayhi)()")
+```
+Note that you may need to specify the type of the function, otherwise(like the following), you may get the error:
+```bash
+
+python gdb.parse_and_eval("sayhi()")
+
+gdb.error: 'sayhi()' has unknown return type; cast the call to its declared return type
+Error while executing Python code.
+
+```
 
 **<u>Inspecting</u>**
 
